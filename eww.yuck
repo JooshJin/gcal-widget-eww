@@ -1,0 +1,76 @@
+(defpoll gcal_week
+  :interval "1m"
+  :initial `{"header":"이번 주","month":"...","days":[]}`
+  "python3 ~/.config/eww/gcal_week.py")
+
+(defpoll gcal_events
+  :interval "5m"
+  :initial "[]"
+  "python3 ~/.config/eww/gcal.py")
+
+(defwindow calendar
+  :monitor 0
+  :geometry (geometry
+    :x "1435px"
+    :y "65px"
+    :width "350px"
+    :anchor "top left")
+  :stacking "background"
+  :wm-ignore true
+  :focusable false
+  :windowtype "desktop"
+  (cal-widget))
+
+(defwidget cal-widget []
+  (box :orientation "vertical"
+       :spacing 0
+       :space-evenly false
+       :class "cal-box"
+
+    ; ── Header row ─────────────────────────────────────────────
+    (box :orientation "horizontal"
+         :space-evenly false
+         :class "cal-header-row"
+      (label :text {gcal_week.header}
+             :class "cal-title"
+             :xalign 0
+             :hexpand true)
+      (label :text {gcal_week.month}
+             :class "cal-month"
+             :xalign 1))
+
+    ; ── 7-day strip ────────────────────────────────────────────
+    (box :orientation "horizontal"
+         :space-evenly true
+         :class "day-strip"
+      (for day in {gcal_week.days}
+        (box :orientation "vertical"
+             :space-evenly false
+             :class "day-cell"
+             :style {day.is_today ? "background-color: rgba(180,140,230,0.55); border-radius: 8px;" : ""}
+          (label :text {day.label}
+                 :class "day-name"
+                 :style {day.is_today ? "color: #8040c8;" : ""})
+          (label :text {day.num}
+                 :class "day-num"
+                 :style {day.is_today ? "color: #6020aa; font-weight: bold;" : ""}))))
+
+    ; ── Event list ─────────────────────────────────────────────
+    (scroll :vscroll true
+            :height 340
+      (box :orientation "vertical"
+           :spacing 6
+           :space-evenly false
+           :class "event-list"
+        (for event in gcal_events
+          (box :orientation "vertical"
+               :spacing 0
+               :space-evenly false
+               :class "event-card"
+            (label :text {event.date + "  ·  " + event.time}
+                   :class "event-meta"
+                   :xalign 0)
+            (label :text {event.title}
+                   :class "event-title"
+                   :xalign 0
+                   :wrap true)))))))
