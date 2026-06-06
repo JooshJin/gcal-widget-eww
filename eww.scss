@@ -2,16 +2,22 @@
     font-family: "Noto Sans CJK KR", "Noto Sans", sans-serif;
 }
 
-/* Make the GTK window itself transparent so picom composites our rgba */
-window {
+/* These selectors override Adwaita's window chrome */
+window,
+window > box,
+window > box > box {
     background-color: transparent;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
+/* Frosted glass panel — semi-transparent white over wallpaper */
 .cal-box {
     padding: 16px 14px 12px 14px;
-    background-color: rgba(250, 248, 255, 0.72);
+    background-color: rgba(255, 255, 255, 0.20);
     border-radius: 16px;
-    border-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.45);
     border-width: 1px;
     border-style: solid;
 }
@@ -24,18 +30,18 @@ window {
 .cal-title {
     font-size: 17px;
     font-weight: 700;
-    color: #4a3a6a;
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .cal-month {
     font-size: 11px;
     font-weight: 400;
-    color: rgba(90, 70, 120, 0.65);
+    color: rgba(255, 255, 255, 0.65);
 }
 
 /* ── Day strip ───────────────────────────────────────────────── */
 .day-strip {
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     padding: 6px 2px;
     margin-bottom: 10px;
@@ -47,32 +53,18 @@ window {
     min-width: 38px;
 }
 
-.day-cell {
-    border-radius: 8px;
-    padding: 5px 0px;
-    min-width: 38px;
-}
-
-box.day-today {
-    border-radius: 8px;
-    padding: 5px 0px;
-    min-width: 38px;
-    background-color: rgba(180, 140, 230, 0.75);
-}
-
 .day-name {
     font-size: 10px;
     font-weight: 500;
-    color: rgba(80, 60, 110, 0.55);
+    color: rgba(255, 255, 255, 0.55);
     margin-bottom: 2px;
 }
 
 .day-num {
     font-size: 14px;
     font-weight: 600;
-    color: #3a2a5a;
+    color: rgba(255, 255, 255, 0.92);
 }
-
 
 /* ── Event list ──────────────────────────────────────────────── */
 .event-list {
@@ -81,9 +73,9 @@ box.day-today {
 
 .event-card {
     padding: 7px 10px;
-    background-color: rgba(255, 255, 255, 0.55);
+    background-color: rgba(255, 255, 255, 0.14);
     border-radius: 8px;
-    border-left-color: rgba(175, 140, 225, 0.80);
+    border-left-color: rgba(255, 255, 255, 0.50);
     border-left-width: 3px;
     border-left-style: solid;
     margin-bottom: 5px;
@@ -92,12 +84,12 @@ box.day-today {
 .event-meta {
     font-size: 10px;
     font-weight: 500;
-    color: rgba(100, 75, 140, 0.75);
+    color: rgba(255, 255, 255, 0.60);
     margin-bottom: 2px;
 }
 
 .event-title {
     font-size: 12px;
     font-weight: 500;
-    color: #2a1a42;
+    color: rgba(255, 255, 255, 0.95);
 }
